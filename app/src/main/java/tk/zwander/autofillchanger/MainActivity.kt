@@ -10,7 +10,6 @@ import androidx.appcompat.app.AlertDialog
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         val intent = Intent(Settings.ACTION_REQUEST_SET_AUTOFILL_SERVICE)
 
@@ -23,12 +22,15 @@ class MainActivity : AppCompatActivity() {
             finish()
         } catch (e: Exception) {
             AlertDialog.Builder(this)
-                    .setTitle(R.string.failed_to_launch)
-                    .setMessage(resources.getString(R.string.failed_to_launch_desc, e.message))
-                    .setPositiveButton(android.R.string.ok) { _, _ ->
-                        finish()
-                    }
-                    .show()
+                .setTitle(R.string.failed_to_launch)
+                .setMessage(resources.getString(R.string.failed_to_launch_desc, e.message))
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                    finish()
+                }
+                .setOnDismissListener {
+                    finish()
+                }
+                .show()
         }
     }
 }
